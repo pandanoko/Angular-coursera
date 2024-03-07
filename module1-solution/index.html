@@ -1,29 +1,85 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Lunch Checker</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <style>
-      .message { font-size: 1.3em; font-weight: bold; }
-    </style>
-  </head>
-<body>
-   <div class="container">
-     <h1>Lunch Checker</h1>
+	<head>
+		<title>Lunch Checker</title>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1"
+		/>
+		<link
+			rel="stylesheet"
+			href="styles/bootstrap.min.css"
+		/>
+		<script src="angular.min.js"></script>
+		<script src="app.js"></script>
+		<style>
+			.d-block {
+				display: block;
+			}
+			.mt-1 {
+				margin-top: 4px;
+			}
+			.message {
+				font-size: 1.3em;
+				font-weight: bold;
+			}
+			.error .message {
+				color: #eb1a1a;
+			}
+			.success .message {
+				color: #0ca159;
+			}
+			.error .form-control {
+				border-color: #eb1a1a;
+				outline: 0;
+				-webkit-box-shadow: inset 0 1px 1px rgba(235, 26, 26, 0.026),
+					0 0 8px rgba(235, 26, 26, 0.6);
+				box-shadow: inset 0 1px 1px rgba(235, 26, 26, 0.026) 0 0 8px
+					rgba(235, 26, 26, 0.6);
+			}
+			.success .form-control {
+				border-color: #0ca159;
+				outline: 0;
+				-webkit-box-shadow: inset 0 1px 1px rgba(12, 161, 89, 0.026),
+					0 0 8px rgba(12, 161, 89, 0.6);
+				box-shadow: inset 0 1px 1px rgba(12, 161, 89, 0.026),
+					0 0 8px rgba(12, 161, 89, 0.6);
+			}
+		</style>
+	</head>
+	<body ng-app="LunchCheck">
+		<div
+			class="container"
+			ng-controller="LunchCheckController"
+			ng-class="{ 'error': status === 'error', 'success': status === 'success'  }"
+		>
+			<h1>Lunch Checker</h1>
 
-         <div class="form-group">
-             <input id="lunch-menu" type="text"
-             placeholder="list comma separated dishes you usually have for lunch"
-             class="form-control">
-         </div>
-         <div class="form-group">
-             <button class="btn btn-default">Check If Too Much</button>
-         </div>
-         <div class="form-group message">
-           <!-- Your message can go here. -->
-         </div>
-   </div>
-
-</body>
+			<div class="form-group">
+				<input
+					id="lunch-menu"
+					type="text"
+					placeholder="list comma separated dishes you usually have for lunch"
+					class="form-control"
+					ng-model="inputText"
+				/>
+				<span class="text-muted mt-1 d-block">
+					Please, DO NOT consider an empty item, i.e. <strong>, ,</strong> , as
+					an item towards to the count
+				</span>
+			</div>
+			<div class="form-group">
+				<button
+					class="btn btn-default"
+					ng-click="checkItems()"
+				>
+					Check If Too Much
+				</button>
+			</div>
+			<div class="form-group message">
+				<!-- Your message can go here. -->
+				{{message}} {{status}}
+			</div>
+		</div>
+	</body>
 </html>
